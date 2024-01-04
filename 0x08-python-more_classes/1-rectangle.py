@@ -3,9 +3,8 @@
 
 class Rectangle:
     """Rectangle defines a rectangle"""
-    width = 0
-    height = 0
-    def __init__(self, height, width):
+
+    def __init__(self, height=0, width=0):
         """Function that initializes instances for height and width"""
     
         self.width = width
