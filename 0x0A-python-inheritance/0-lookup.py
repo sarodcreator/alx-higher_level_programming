@@ -10,4 +10,4 @@ def lookup(obj):
     """
 
 
-    return (obj)
+    return dir(obj)
