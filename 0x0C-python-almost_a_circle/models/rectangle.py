@@ -76,3 +76,18 @@ class Rectangle (Base):
             rectangle += ("" * self.x) + (print_symbol * self.width) + '\n'
             print(rectangle, end="")
 
+
+    def update(self, *args, **kwargs):
+        if len(args) == 0:
+            for key, value in kwargs.items():
+                self.__setattr__(key, value)
+            return
+        try:
+            self.id = args[0]
+            self.height = args[1]
+            self.width = args[2]
+            self.x = args[3]
+            self.y = args[4]
+
+        except IndexError:
+            pass
