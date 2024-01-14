@@ -66,3 +66,13 @@ class Rectangle (Base):
     def __str__(self):
         return ("[{}] ({}) {}/{} - {}/{}".format(type(self).__name__, self.id, self.__x, self.__y, self.__width, self.__height))
 
+    def display(self):
+        print_symbol = "#"
+        rectangle = ""
+
+        print("\n" * self.y, end="")
+
+        for i in range(self.height):
+            rectangle += ("" * self.x) + (print_symbol * self.width) + '\n'
+            print(rectangle, end="")
+
