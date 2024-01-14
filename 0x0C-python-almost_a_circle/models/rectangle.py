@@ -91,3 +91,11 @@ class Rectangle (Base):
 
         except IndexError:
             pass
+
+    def to_dictionary(self):
+
+        return ({'x': getattr(self, "x"),
+            'y': getattr(self, "y"), 'id': getattr(self, "id"),
+            'height': getattr(self, "height"), 'width': getattr(self, "width")})
+
+

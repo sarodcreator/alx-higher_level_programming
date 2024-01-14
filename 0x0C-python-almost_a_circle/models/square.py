@@ -37,3 +37,9 @@ class Square (Rectangle):
         def __str__(self):
 
             return ("[{}] ({})  {}/{} - {}".format(type(self).__name__, self.id, self.x, self.y, self.width))
+
+    def to_dictionary(self):
+
+        return ({'id': getattr(self, "id"), 'x': getattr(self, "x"),
+                'size': getattr(self, "size"), 'y': getattr(self, "y")})
+
