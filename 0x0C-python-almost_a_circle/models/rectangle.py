@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Rectanle module"""
+"""Rectanle Model"""
 
 from models.base import Base
 
