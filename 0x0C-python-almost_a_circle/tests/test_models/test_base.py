@@ -311,13 +311,13 @@ class CreateModel(unittest.TestCase):
         s1 = Square(3, 5, 1, 7)
         s1_dictionary = s1.to_dictionary()
         s2 = Square.create(**s1_dictionary)
-        self.assertEqual("[Square] (7) 5/1 - 3", str(s1))
+        self.assertEqual("[Square] (7) 5/1 - 3/3", str(s1))
 
     def test_create_square_new(self):
         s1 = Square(3, 5, 1, 7)
         s1_dictionary = s1.to_dictionary()
         s2 = Square.create(**s1_dictionary)
-        self.assertEqual("[Square] (7) 5/1 - 3", str(s2))
+        self.assertEqual("[Square] (7) 5/1 - 3/3", str(s2))
 
     def test_create_square_is(self):
         s1 = Square(3, 5, 1, 7)

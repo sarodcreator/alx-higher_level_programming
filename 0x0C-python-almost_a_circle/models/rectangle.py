@@ -94,13 +94,14 @@ class Rectangle (Base):
     def display(self):
         """A function that prints a rectangle with "#" character"""
 
-        print_symbol = "#"
         rectangle = ""
+        print_symbol = "#"
 
         print("\n" * self.y, end="")
 
         for i in range(self.height):
-            rectangle += ("" * self.x) + (print_symbol * self.width) + '\n'
+            line = (" " * self.x) + (print_symbol * self.width) + '\n'
+            rectangle += line
             print(rectangle, end="")
 
 

@@ -22,10 +22,9 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-         """A function that returns JSON representation of a list of dicts"""
-
+        """A function that returns JSON representation of a list of dicts"""
+        
         if list_dictionaries is None or len(list_dictionaries) == 0:
-
             return ("[]")
         else:
             return (json.dumps(list_dictionaries))
@@ -40,7 +39,7 @@ class Base:
                 jsonfile.write("[]")
 
             else:
-                dict_list = [obj.to_dictionary() for obj in list_objs]
+                dict_list = [o.to_dictionary() for o in list_objs]
                 jsonfile.write(Base.to_json_string(dict_list))
 
     @staticmethod
@@ -48,7 +47,7 @@ class Base:
         """A function that returns the deserialization of a JSON string"""
 
         if json_string is None or json_string == "[]":
-            return ("[]")
+            return ([])
         return (json.loads(json_string))
 
     @classmethod
@@ -145,7 +144,7 @@ class Base:
 
         mod.color("green")
         for square in list_squares:
-           mod.showturtle()
+            mod.showturtle()
             mod.up()
             mod.goto(square.x, square.y)
             mod.down()
