@@ -100,8 +100,7 @@ class Rectangle (Base):
         print("\n" * self.y, end="")
 
         for i in range(self.height):
-            line = (" " * self.x) + (print_symbol * self.width) + '\n'
-            rectangle += line
+            rectangle = (" " * self.x) + (print_symbol * self.width) + "\n"
             print(rectangle, end="")
 
 
