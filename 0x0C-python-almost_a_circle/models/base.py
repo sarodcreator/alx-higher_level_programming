@@ -52,3 +52,14 @@ class Base:
 
             recent.update(**dictionary)
             return (recent)
+    @classmethod
+    def load_from_file(cls):
+        filename = str(cls.__name__) + ".json"
+        try:
+
+            with open(filename, "r") as jsonfile:
+                dic_list = Base.from_json_string(jsonfile.read())
+                return ([cls.create(**d) for d in dic_list])
+
+        except FileNotFoundError:
+            return ([])
