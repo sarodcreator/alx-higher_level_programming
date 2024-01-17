@@ -319,7 +319,7 @@ class XInstances(unittest.TestCase):
             Rectangle(1, 2, float('nan'), 2)
 
     def test_negative_x(self):
-        with self.assertRaisesRegex(ValueError, "x must be > 0"):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             Rectangle(5, 3, -1, 0)
 
 
@@ -388,7 +388,7 @@ class YInstances(unittest.TestCase):
             Rectangle(1, 2, 1, float('nan'))
 
     def test_negative_y(self):
-        with self.assertRaisesRegex(ValueError, "y must be > 0"):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Rectangle(3, 5, 0, -1)
 
 
@@ -500,23 +500,23 @@ class DisplayMethodsR(unittest.TestCase):
     def test_display_width_height(self):
         r = Rectangle(2, 3, 0, 0, 0)
         capture = DisplayMethodsR.capture_stdout(r, "display")
-        self.assertEqual("##\n##\n##\n##\n##\n##\n", capture.getvalue())
+        self.assertEqual("##\n##\n##\n", capture.getvalue())
 
     def test_display_width_height_x(self):
         r = Rectangle(3, 2, 1, 0, 1)
         capture = DisplayMethodsR.capture_stdout(r, "display")
-        self.assertEqual(" ###\n ###\n ###\n", capture.getvalue())
+        self.assertEqual(" ###\n ###\n", capture.getvalue())
 
     def test_display_width_height_y(self):
         r = Rectangle(5, 4, 0, 1, 0)
         capture = DisplayMethodsR.capture_stdout(r, "display")
-        display = "\n#####\n#####\n#####\n#####\n#####\n#####\n#####\n#####\n#####\n#####\n"
+        display = "\n#####\n#####\n#####\n#####\n"
         self.assertEqual(display, capture.getvalue())
 
     def test_display_width_height_x_y(self):
         r = Rectangle(2, 4, 3, 2, 0)
         capture = DisplayMethodsR.capture_stdout(r, "display")
-        display = "\n\n   ##\n   ##\n   ##\n   ##\n   ##\n   ##\n   ##\n   ##\n   ##\n   ##\n"
+        display = "\n\n   ##\n   ##\n   ##\n   ##\n"
         self.assertEqual(display, capture.getvalue())
 
     def test_display_one_arg(self):
@@ -542,27 +542,27 @@ class RectangleArgs(unittest.TestCase):
     def test_update_args_two(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(89, 2)
-        self.assertEqual("[Rectangle] (89) 10/10 - 10/2", str(r))
+        self.assertEqual("[Rectangle] (89) 10/10 - 2/10", str(r))
 
     def test_update_args_three(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(89, 2, 3)
-        self.assertEqual("[Rectangle] (89) 10/10 - 3/2", str(r))
+        self.assertEqual("[Rectangle] (89) 10/10 - 2/3", str(r))
 
     def test_update_args_four(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(89, 2, 3, 4)
-        self.assertEqual("[Rectangle] (89) 4/10 - 3/2", str(r))
+        self.assertEqual("[Rectangle] (89) 4/10 - 2/3", str(r))
 
     def test_update_args_five(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(89, 2, 3, 4, 5)
-        self.assertEqual("[Rectangle] (89) 4/5 - 3/2", str(r))
+        self.assertEqual("[Rectangle] (89) 4/5 - 2/3", str(r))
 
     def test_update_args_more_than_five(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(89, 2, 3, 4, 5, 6)
-        self.assertEqual("[Rectangle] (89) 4/5 - 3/2", str(r))
+        self.assertEqual("[Rectangle] (89) 4/5 - 2/3", str(r))
 
     def test_update_args_None_id(self):
         r = Rectangle(10, 10, 10, 10, 10)
@@ -573,43 +573,43 @@ class RectangleArgs(unittest.TestCase):
     def test_update_args_None_id_and_more(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(None, 4, 5, 2)
-        correct = "[Rectangle] ({}) 2/10 - 5/4".format(r.id)
+        correct = "[Rectangle] ({}) 2/10 - 4/5".format(r.id)
         self.assertEqual(correct, str(r))
 
     def test_update_args_twice(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(89, 2, 3, 4, 5, 6)
         r.update(6, 5, 4, 3, 2, 89)
-        self.assertEqual("[Rectangle] (6) 3/2 - 4/5", str(r))
+        self.assertEqual("[Rectangle] (6) 3/2 - 5/4", str(r))
 
     def test_update_args_invalid_width_type(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
             r.update(89, "invalid")
 
     def test_update_args_width_zero(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
             r.update(89, 0)
 
     def test_update_args_width_negative(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "height must be > 0"):
+        with self.assertRaisesRegex(ValueError, "width must be > 0"):
             r.update(89, -5)
 
     def test_update_args_invalid_height_type(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
             r.update(89, 2, "invalid")
 
     def test_update_args_height_zero(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
             r.update(89, 1, 0)
 
     def test_update_args_height_negative(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "width must be > 0"):
+        with self.assertRaisesRegex(ValueError, "height must be > 0"):
             r.update(89, 1, -5)
 
     def test_update_args_invalid_x_type(self):
@@ -619,7 +619,7 @@ class RectangleArgs(unittest.TestCase):
 
     def test_update_args_x_negative(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "x must be > 0"):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             r.update(89, 1, 2, -6)
 
     def test_update_args_invalid_y(self):
@@ -629,32 +629,32 @@ class RectangleArgs(unittest.TestCase):
 
     def test_update_args_y_negative(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "y must be > 0"):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             r.update(89, 1, 2, 3, -6)
 
     def test_update_args_width_before_height(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
             r.update(89, "invalid", "invalid")
 
     def test_update_args_width_before_x(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
             r.update(89, "invalid", 1, "invalid")
 
     def test_update_args_width_before_y(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(TypeError, "height must be an integer"):
+        with self.assertRaisesRegex(TypeError, "width must be an integer"):
             r.update(89, "invalid", 1, 2, "invalid")
 
     def test_update_args_height_before_x(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
             r.update(89, 1, "invalid", "invalid")
 
     def test_update_args_height_before_y(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(TypeError, "width must be an integer"):
+        with self.assertRaisesRegex(TypeError, "height must be an integer"):
             r.update(89, 1, "invalid", 1, "invalid")
 
     def test_update_args_x_before_y(self):
@@ -747,7 +747,7 @@ class RectangleKwargs(unittest.TestCase):
 
     def test_update_kwargs_x_negative(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "x must be > 0"):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             r.update(x=-5)
 
     def test_update_kwargs_invalid_y_type(self):
@@ -757,13 +757,13 @@ class RectangleKwargs(unittest.TestCase):
 
     def test_update_kwargs_y_negative(self):
         r = Rectangle(10, 10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "y must be > 0"):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             r.update(y=-5)
 
     def test_update_args_and_kwargs(self):
         r = Rectangle(10, 10, 10, 10, 10)
         r.update(89, 2, height=4, y=6)
-        self.assertEqual("[Rectangle] (89) 10/10 - 10/2", str(r))
+        self.assertEqual("[Rectangle] (89) 10/10 - 2/10", str(r))
 
     def test_update_kwargs_wrong_keys(self):
         r = Rectangle(10, 10, 10, 10, 10)

@@ -223,7 +223,7 @@ class XInstances(unittest.TestCase):
             Square(1, float('nan'), 2)
 
     def test_negative_x(self):
-        with self.assertRaisesRegex(ValueError, "x must be > 0"):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             Square(5, -1, 0)
 
 
@@ -292,7 +292,7 @@ class YInstances(unittest.TestCase):
             Square(1, 1, float('nan'))
 
     def test_negative_y(self):
-        with self.assertRaisesRegex(ValueError, "y must be > 0"):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             Square(3, 0, -1)
 
 
@@ -389,23 +389,23 @@ class DisplayMethods(unittest.TestCase):
     def test_display_size(self):
         s = Square(2, 0, 0, 9)
         capture = DisplayMethods.capture_stdout(s, "display")
-        self.assertEqual("##\n##\n##\n", capture.getvalue())
+        self.assertEqual("##\n##\n", capture.getvalue())
 
     def test_display_size_x(self):
         s = Square(3, 1, 0, 18)
         capture = DisplayMethods.capture_stdout(s, "display")
-        self.assertEqual(' ###\n ###\n ###\n ###\n ###\n ###\n', capture.getvalue())
+        self.assertEqual(' ###\n ###\n ###\n', capture.getvalue())
 
     def test_display_size_y(self):
         s = Square(4, 0, 1, 9)
         capture = DisplayMethods.capture_stdout(s, "display")
-        display = "\n####\n####\n####\n####\n####\n####\n####\n####\n####\n####\n"
+        display = "\n####\n####\n####\n####\n"
         self.assertEqual(display, capture.getvalue())
 
     def test_display_size_x_y(self):
         s = Square(2, 3, 2, 1)
         capture = DisplayMethods.capture_stdout(s, "display")
-        display = "\n\n   ##\n   ##\n   ##\n"
+        display = "\n\n   ##\n   ##\n"
         self.assertEqual(display, capture.getvalue())
 
     def test_display_one_arg(self):
@@ -498,7 +498,7 @@ class SquareArgs(unittest.TestCase):
 
     def test_update_args_x_negative(self):
         s = Square(10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "x must be > 0"):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             s.update(98, 1, -4)
 
     def test_update_args_invalid_y(self):
@@ -508,7 +508,7 @@ class SquareArgs(unittest.TestCase):
 
     def test_update_args_y_negative(self):
         s = Square(10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "y must be > 0"):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             s.update(98, 1, 2, -4)
 
     def test_update_args_size_before_x(self):
@@ -601,7 +601,7 @@ class SquareKwargs(unittest.TestCase):
 
     def test_update_kwargs_x_negative(self):
         s = Square(10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "x must be > 0"):
+        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
             s.update(x=-5)
 
     def test_update_kwargs_invalid_y(self):
@@ -611,7 +611,7 @@ class SquareKwargs(unittest.TestCase):
 
     def test_update_kwargs_y_negative(self):
         s = Square(10, 10, 10, 10)
-        with self.assertRaisesRegex(ValueError, "y must be > 0"):
+        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
             s.update(y=-5)
 
     def test_update_args_and_kwargs(self):
