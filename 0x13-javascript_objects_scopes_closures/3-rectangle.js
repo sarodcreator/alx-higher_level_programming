@@ -20,9 +20,9 @@ class Rectangle
 			let col = '';
 			for (row; row < this.width; row++)
 			{
-				col += 'X'
+				col += 'X';
 			}
-			console.log(col)
+			console.log(col);
 		}
 	}
 }
