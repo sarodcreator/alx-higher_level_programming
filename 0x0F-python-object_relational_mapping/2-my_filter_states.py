@@ -19,7 +19,7 @@ if __name__ == "__main":
     ORDER BY id ASC", (state_name))
     rows = cursor.fetchall()
     for row in rows:
-        if row[1] == argv[4]:
+        if row[1] == state_name:
             print(row)
 
     cursor.close()
