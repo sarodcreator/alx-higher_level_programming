@@ -10,7 +10,8 @@ if __name__ == "__main__":
     cursor.execute("SELECT cities.id, cities.name, states.name FROM cities \
     JOIN states ON cities.state_id = states.id ORDER BY cities.id")
     rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    if rows is not none:
+        for row in rows:
+            print(row)
     cursor.close()
     db.close()
