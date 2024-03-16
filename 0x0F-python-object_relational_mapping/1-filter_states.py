@@ -24,5 +24,5 @@ if __name__ == "__main__":
         if row[1][0] == "N":
             print(row)
 
-    curs.close()
+    cur.close()
     db.close()
