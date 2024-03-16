@@ -1,26 +1,18 @@
 #!/usr/bin/python3
-"""
-Script that takes in an argument and displays all values in the states table
-of hbtn_0e_0_usa where name matches the argument.
-"""
-
-from sys import argv
+"""Script that takes in an argument and displays all values in the states
+table of hbtn_0e_0_usa where name matches the argument"""
 import MySQLdb
+import sys
 
-if __name__ == "__main":
-    if len(argv) != 5:
-        sys.exit(1)
-    db = MySQLdb.connect(host="localhost",
-            port=3306, user=argv[1], passwd=argv[2],
-            db=argv[3])
-    cursor = db.cursor()
-    state_name =sys.argv[4]
-    cursor.execute("SELECT * FROM states WHERE name=%s
-    ORDER BY id ASC", (state_name))
-    rows = cursor.fetchall()
+if __name__ == "__main__":
+    db = MySQLdb.connect(host="localhost", port=3306, user=sys.argv[1],
+                         passwd=sys.argv[2], db=sys.argv[3], charset="utf8")
+    cur = db.cursor()
+    cur.execute("SELECT * FROM states WHERE name LIKE '{:s}' ORDER BY \
+    id ASC".format(sys.argv[4]))
+    rows = cur.fetchall()
     for row in rows:
-        if row[1] == state_name:
+        if row[1] == sys.argv[4]:
             print(row)
-
-    cursor.close()
+    cur.close()
     db.close()
